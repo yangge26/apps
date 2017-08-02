@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我是弹幕</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				overflow: hidden;
+			}
+			
+			.tips {
+				position: absolute;
+				top: 40%;
+				left: 50%;
+				margin-left: -225px;
+				margin-top: -25px;
+				width: 450px;
+				height: 50px;
+				line-height: 50px;
+				font-size: 36px;
+				opacity: 1;
+				transition: opacity 1.5s ease-in-out;
+			}
+			
+			#list {
+				width: 3000px;
+				height: 1000px;
+				position: relative;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="tips">有一大波弹幕即将杀到！！</div>
+		<div id="list"></div>
+		<script type="text/javascript">
+			var w = window.innerWidth;
+			var tops = getRandom(7);
+
+			var count = 0;
+			window.onload = function() {
+				setTimeout(function() {
+					document.querySelector('.tips').style.opacity = '0';
+				}, 1500);
+			};
+
+			function getTop() {
+				var n;
+				while(true) {
+					n = Math.ceil(Math.random() * 10);
+					if(tops.indexOf(n) < 0) {
+						break;
+					}
+				}
+				tops.shift();
+				tops.push(n);
+				return tops[0] * 50;
+			}
+
+			function Demo() {
+
+			}
+
+			Demo.prototype.colors = ['#ed5565', '#fc6e51', '#e9573f', '#8cc152', '#37bc9b', '#4a89dc'];
+			Demo.prototype.fs = [12, 15, 18, 20, 22, 25];
+
+			Demo.prototype.init = function(obj) {
+				var el = document.createElement('span');
+				el.innerHTML = obj.content;
+				var top = getTop();
+				var left = 500 + Math.ceil(Math.random() * 100);
+				var color = this.colors[Math.ceil(Math.random() * 6)];
+				var fs = this.fs[Math.ceil(Math.random() * 6)];
+				var str = 'position:absolute;top:' + top + 'px;left:-' + left + 'px;color:' + color + ';font-size:' + fs + 'px;';
+				el.style.cssText = str;
+				document.getElementById("list").appendChild(el);
+				this.el = el;
+				var speed = 2 + Math.floor(Math.random() * 6) * 0.3;
+				this.speed = speed;
+				this.start();
+			};
+
+			Demo.prototype.start = function() {
+				var self = this;
+				var speed = self.speed;
+				var el = self.el;
+				self.t = setInterval(function() {
+					var elstyle = document.defaultView.getComputedStyle(el, null);
+					var next = parseInt(elstyle.left) + Number(speed);
+					el.style.left = next + 'px';
+					if(next >= parseInt(w)) {
+						clearInterval(self.t);
+						document.getElementById("list").removeChild(el);
+					}
+				}, 20);
+			};
+
+			var arr = ['以前没得选，现在我想做个好人', '一支穿云箭，千军万马来相见', '我是说在座的各位都是垃圾', '我们是一群放飞理想的有志青年', '开始的开始，我们都是孩子'];
+
+			var timer = setInterval(function() {
+				new Demo().init({
+					content: arr[count % 5]
+				});
+				count++;
+				if(count == 500) {
+					clearInterval(timer);
+				}
+			}, 800);
+
+			function getRandom(n) {
+				var a = [];
+				for(var i = 1; i <= n; i++) {
+					a.push(i);
+				}
+				for(var i = 0; i < a.length; i++) {
+					var num = Math.floor(Math.random() * n);
+					var temp = a[i];
+					a[i] = a[num];
+					a[num] = temp;
+				}
+				return a;
+			}
+		</script>
+	</body>
+
+</html>

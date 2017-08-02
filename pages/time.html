@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>当前时间</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.container {
+				margin: 60px auto;
+				width: 540px;
+				font-size: 0;
+			}
+			
+			.num-box {
+				display: inline-block;
+				width: 80px;
+				height: 80px;
+				overflow: hidden;
+				background: #3A66BC;
+				box-shadow: 0px 0px 5px 0px #999;
+				border-radius: 8px;
+				margin: 0 5px;
+			}
+			
+			.num-list {
+				transition-property: all;
+				transition-duration: 300ms;
+			}
+			
+			.num-item {
+				width: 80px;
+				height: 80px;
+				color: #FFFFFF;
+				text-align: center;
+				line-height: 80px;
+				font-family: "微软雅黑";
+				font-size: 48px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="num-box">
+				<div class="num-list" id="list6">
+
+				</div>
+			</div>
+			<div class="num-box">
+				<div class="num-list" id="list5">
+
+				</div>
+			</div>
+
+			<div class="num-box">
+				<div class="num-list" id="list4">
+
+				</div>
+			</div>
+			<div class="num-box">
+				<div class="num-list" id="list3">
+
+				</div>
+			</div>
+
+			<div class="num-box">
+				<div class="num-list" id="list2">
+
+				</div>
+			</div>
+
+			<div class="num-box">
+				<div class="num-list" id="list1">
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			! function() {
+				var timer = null;
+				var cur = 0;
+				var speed = 300;
+
+				var list1 = document.getElementById("list1");
+				var list2 = document.getElementById("list2");
+				var list3 = document.getElementById("list3");
+				var list4 = document.getElementById("list4");
+				var list5 = document.getElementById("list5");
+				var list6 = document.getElementById("list6");
+
+				setHtml(list1, 10);
+				setHtml(list2, 6);
+				setHtml(list3, 10);
+				setHtml(list4, 6);
+				setHtml(list5, 10);
+				setHtml(list6, 3);
+
+				initTime();
+
+				function setHtml(el, num) {
+					var sHtml = '';
+					for(var i = 0; i < num; i++) {
+						sHtml += '<div class="num-item">' + i + '</div>';
+					}
+					sHtml += '<div class="num-item">0</div>';
+					el.innerHTML = sHtml;
+					el.dataset.count = num;
+				}
+
+				function initTime() {
+					var now = new Date();
+
+					var second = now.getSeconds();
+					var minute = now.getMinutes();
+					var hour = now.getHours();
+
+					setNum(list6, parseInt(hour / 10));
+					setNum(list5, parseInt(hour % 10));
+					setNum(list4, parseInt(minute / 10));
+					setNum(list3, parseInt(minute % 10));
+					setNum(list2, parseInt(second / 10));
+					setNum(list1, parseInt(second % 10));
+
+					cur = hour * 3600 + minute * 60 + second;
+
+				}
+
+				function setNum(el, num) {
+					el.style.transform = 'translateY(-' + num * 80 + 'px)';
+					el.dataset.move = num;
+				}
+
+				timer = setInterval(() => {
+					cur++;
+					doMove(list1);
+					if(cur % 10 === 0) {
+						doMove(list2);
+						if(cur % 60 === 0) {
+							doMove(list3);
+							if(cur % 600 === 0) {
+								doMove(list4);
+								if(cur % 3600 === 0) {
+									doMove(list5);
+									if(cur % 36000 === 0) {
+										doMove(list6);
+									}
+								}
+							}
+						}
+					}
+				}, 1000);
+
+				function doMove(el) {
+					var moveNum = el.dataset.move;
+					var count = parseInt(el.dataset.count);
+					moveNum++;
+					el.style.transform = 'translateY(-' + moveNum * 80 + 'px)';
+					el.dataset.move = moveNum;
+					if(moveNum === count) {
+						el.dataset.move = 0;
+						setTimeout(() => {
+							el.style.transitionDuration = '0ms';
+							el.style.transform = 'translateY(0)';
+						}, speed * 1 + 50);
+						setTimeout(() => {
+							el.style.transitionDuration = speed + 'ms';
+						}, speed * 1 + 100);
+					}
+				}
+			}();
+		</script>
+
+	</body>
+
+</html>
