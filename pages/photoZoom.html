@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>图片放大</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box-small {
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.box-move {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				background-color: #d22;
+				opacity: 0.5;
+				border-radius: 50%;
+			}
+			
+			.box-show {
+				overflow: hidden;
+				position: relative;
+				border-radius: 50%;
+			}
+			
+			#img-show {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			#img-small {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box-small">
+			<img id="img-small" />
+			<div class="box-move"></div>
+		</div>
+		<div class="box-show">
+			<img id="img-show" />
+		</div>
+		<script type="text/javascript">
+			var LEN = 450;
+			var SIZE = 50;
+			var per = 0;
+			var imgSrc = '../images/4.jpg';
+			window.onload = function() {
+				setImg();
+			};
+
+			function setImg() {
+				var src = imgSrc;
+				var img = new Image();
+				img.src = src;
+				img.onload = function() {
+					var imgW = this.width;
+					var imgH = this.height;
+					var n = imgW / imgH;
+					var boxW = 0,
+						boxH = 0;
+					var smallW = 0,
+						smallH = 0;
+					if(imgW >= imgH) {
+						smallW = LEN;
+						smallH = LEN / n;
+						boxW = LEN;
+						boxH = smallH;
+						per = imgW / LEN;
+					} else {
+						smallH = LEN;
+						smallW = LEN * n;
+						boxW = smallW;
+						boxH = LEN;
+						per = imgH / LEN;
+					}
+
+					var small = document.getElementById("img-small");
+					var show = document.getElementById("img-show");
+					var box = document.querySelector(".box-small");
+					small.src = imgSrc;
+					box.style.width = smallW + 'px';
+					box.style.height = smallH + 'px';
+					show.src = imgSrc;
+					if(per > 4) {
+						per = 4;
+						show.style.width = 4 * smallW + 'px';
+						show.style.height = 4 * smallH + 'px';
+					}
+
+					box.onmousemove = function() {
+						setPos(event, boxW, boxH);
+					};
+					var show = document.querySelector(".box-show");
+					show.style.width = 2 * SIZE * per + 'px';
+					show.style.height = 2 * SIZE * per + 'px';
+
+					var move = document.querySelector(".box-move");
+					move.style.width = 2 * SIZE + 'px';
+					move.style.height = 2 * SIZE + 'px';
+				};
+			}
+
+			function setPos(ev, boxW, boxH) {
+				var move = document.querySelector(".box-move");
+				var x = ev.clientX;
+				var y = ev.clientY;
+				var left = 0;
+				var top = 0;
+				if(x < SIZE) {
+					left = 0;
+				} else if(x >= SIZE && x <= boxW - SIZE) {
+					left = x - SIZE;
+				} else {
+					left = boxW - SIZE * 2;
+				}
+
+				if(y < SIZE) {
+					top = 0;
+				} else if(y >= SIZE && y <= boxH - SIZE) {
+					top = y - SIZE;
+				} else {
+					top = boxH - SIZE * 2;
+				}
+
+				move.style.left = left + 'px';
+				move.style.top = top + 'px';
+
+				setShow(left, top);
+			}
+
+			function setShow(left, top) {
+				top = top * per;
+				left = left * per;
+				var show = document.getElementById("img-show");
+				show.style.left = -left + 'px';
+				show.style.top = -top + 'px';
+			}
+		</script>
+	</body>
+
+</html>
