@@ -1,2 +1,2 @@
 # apps
-some apps!
+一些网页小应用。
