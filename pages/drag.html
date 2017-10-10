@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽案例</title>
+		<style type="text/css">
+			#box {
+				float: left;
+			}
+			
+			#list {
+				float: left;
+				margin-left: 15px;
+			}
+			
+			.phone {
+				width: 320px;
+				height: 600px;
+				border-radius: 15px;
+				box-shadow: 0 0 3px 3px #DDDDDD;
+				overflow: hidden;
+			}
+			
+			.inner {
+				box-sizing: border-box;
+				margin: 20px auto;
+				width: 300px;
+				height: 560px;
+				border: 1px solid #DDDDDD;
+				overflow: auto;
+				line-height: 1;
+			}
+			
+			.inner .phone-img {
+				width: 100%;
+			}
+			
+			.img {
+				width: 240px;
+				height: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div class="phone">
+				<div class="inner"></div>
+			</div>
+		</div>
+
+		<div id="list">
+			<img id="drag1" src="../images/1.jpg" draggable="true" class="img">
+			<img id="drag2" src="../images/2.jpg" draggable="true" class="img">
+			<img id="drag3" src="../images/3.jpg" draggable="true" class="img">
+			<img id="drag4" src="../images/4.jpg" draggable="true" class="img">
+		</div>
+
+		<script type="text/javascript">
+			var count = 0;
+			var className = 'phone-img';
+			window.onload = function() {
+				var imgList = document.querySelectorAll("img");
+
+				var innerBox = document.querySelectorAll(".inner")[0];
+				for(var i = 0; i < imgList.length; i++) {
+					imgList[i].ondragstart = function(ev) {
+						var el = this;
+						var imgSrc = el.getAttribute('src');
+						setDragData(ev, {
+							"Text": imgSrc,
+							"Type": "1"
+						});
+
+						ev.dataTransfer.setDragImage(this, 100, 50);
+					};
+				}
+
+				innerBox.ondrop = function(ev) {
+					ev.preventDefault();
+					var targetEl = ev.target;
+					var data = getDragData(ev, 'Text');
+					var type = getDragData(ev, 'Type');
+					var self = this;
+					if(type == '1') {
+						if(targetEl.className === className) {
+							self.insertBefore(getImgElement(data), targetEl);
+						} else {
+							self.appendChild(getImgElement(data));
+						}
+					} else {
+						if(targetEl.className === className) {
+							self.insertBefore(document.getElementById(data), targetEl)
+						}
+					}
+				};
+
+				function getImgElement(imgSrc) {
+					var imgEl = document.createElement('img');
+					imgEl.id = 'myimg' + count;
+					count++;
+					imgEl.className = className;
+					imgEl.src = imgSrc;
+					imgEl.setAttribute('draggable', true);
+					imgEl.ondragstart = function(ev) {
+						var el = this;
+						var imgSrc = el.getAttribute('src');
+						setDragData(ev, {
+							"Text": el.id,
+							"Type": '2'
+						});
+					};
+					return imgEl;
+				}
+
+				innerBox.ondragover = function(ev) {
+					ev.preventDefault();
+				}
+			};
+
+			function setDragData(ev, obj) {
+				for(var key in obj) {
+					ev.dataTransfer.setData(key, obj[key]);
+				}
+			}
+
+			function getDragData(ev, key) {
+				return ev.dataTransfer.getData(key);
+			}
+		</script>
+	</body>
+
+</html>

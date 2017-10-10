@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>倒计时</title>
+		<style type="text/css">
+			.item {
+				font-size: 30px;
+				color: #00A1F5;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="demo1" class="item">
+			<span hour></span>时<span minute></span>分<span second></span>秒<span millisecond></span>
+		</div>
+
+		<div id="demo2" class="item">
+			<span day></span>天<span hour></span>时<span minute></span>分<span second></span>秒<span millisecond></span>
+		</div>
+
+		<div id="demo3" class="item">
+			<span hour></span>时<span minute></span>分<span second></span>秒
+		</div>
+
+		<script type="text/javascript">
+			/**
+			 * 需传入三个参数，结束时间endTime，显示的元素el，倒计时结束的回调函数end
+			 * 根据显示元素里面的内容显示不同的情况
+			 * <span day></span>
+			 * <span hour></span>
+			 * <span minute></span>
+			 * <span second></span>
+			 * <span millisecond></span>
+			 * 可以根据情况进行调整显示内容
+			 */
+
+			function CountDown() {}
+
+			CountDown.prototype.init = function(opts) {
+				let gap = opts.endTime - new Date().getTime();
+				let timer = null;
+				let AMIN = 60;
+				let AHOUR = 3600;
+				let ADAY = 24 * 3600;
+
+				let time = 1000;
+				let hasmillisecond = false;
+				let first = true;
+
+				let box = opts.el;
+
+				this.box = opts.el;
+
+				if(box.querySelector('[millisecond]')) {
+					time = 10;
+					hasmillisecond = true;
+					this.hasMillisecond = true;
+				}
+				if(box.querySelector('[day]')) {
+					this.hasDay = true;
+				}
+				if(box.querySelector('[minute]')) {
+					this.hasMinute = true;
+				}
+				if(box.querySelector('[hour]')) {
+					this.hasHour = true;
+				}
+				if(box.querySelector('[second]')) {
+					this.hasSecond = true;
+				}
+
+				this.setCountdown(0, 0, 0, 0, 0);
+
+				if(gap > 0) {
+					gap = Math.floor((gap - time) / 10);
+					timer = setInterval(() => {
+
+						let mygap = Math.floor(gap / 100);
+
+						let day = Math.floor(mygap / ADAY);
+						let hour = Math.floor((mygap - day * ADAY) / AHOUR);
+						let min = Math.floor((mygap % AHOUR) / AMIN);
+						let second = mygap % AMIN;
+						let millisecond = gap % 100;
+
+						if(!this.hasDay) {
+							hour = day * 24 + hour;
+						}
+
+						if(first) {
+							this.setCountdown(day, hour, min, second, millisecond);
+							first = false;
+						}
+
+						if(hasmillisecond) {
+							if(millisecond != 99) {
+								this.setMillisecond(millisecond);
+							} else {
+								this.setCountdown(day, hour, min, second, millisecond);
+							}
+						} else {
+							this.setCountdown(day, hour, min, second);
+						}
+
+						if(gap === 0) {
+							clearInterval(timer);
+							opts.end && opts.end();
+						} else {
+							if(hasmillisecond) {
+								gap--;
+							} else {
+								gap = gap - 100;
+							}
+						}
+					}, time);
+				} else {
+					console.log("结束时间小于当前时间");
+					this.setCountdown(0, 0, 0, 0, 0);
+				}
+
+			};
+
+			CountDown.prototype.setCountdown = function(day, hour, minute, second, millisecond) {
+				let box = this.box;
+				this.hasDay && (box.querySelector('[day]').innerHTML = this.numFormat(day));
+				this.hasHour && (box.querySelector('[hour]').innerHTML = this.numFormat(hour));
+				this.hasMinute && (box.querySelector('[minute]').innerHTML = this.numFormat(minute));
+				this.hasSecond && (box.querySelector('[second]').innerHTML = this.numFormat(second));
+				this.hasMillisecond && (box.querySelector('[millisecond]').innerHTML = this.numFormat(millisecond));
+			};
+
+			CountDown.prototype.setMillisecond = function(millisecond) {
+				let box = this.box;
+				this.hasMillisecond && (box.querySelector('[millisecond]').innerHTML = this.numFormat(millisecond));
+			};
+
+			CountDown.prototype.numFormat = function(num) {
+				if(num < 10) {
+					return '0' + num;
+				}
+				return '' + num;
+			}
+
+			var cd1 = new CountDown();
+			var mydate1 = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
+			cd1.init({
+				endTime: mydate1,
+				el: document.getElementById("demo1")
+			});
+
+			var cd2 = new CountDown();
+			var mydate2 = new Date(new Date().getTime() + 26 * 60 * 60 * 1000);
+			cd2.init({
+				endTime: mydate2,
+				el: document.getElementById("demo2")
+			});
+
+			var cd3 = new CountDown();
+			var mydate3 = new Date(new Date().getTime() + 20 * 1000);
+			cd3.init({
+				endTime: mydate3,
+				el: document.getElementById("demo3"),
+				end: function() {
+					console.log("end");
+				}
+			});
+		</script>
+
+	</body>
+
+</html>
