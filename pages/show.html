@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>图片展示</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box {
+				margin: 50px auto;
+				width: 500px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<canvas id="canvas" width="600" height="600"></canvas>
+		</div>
+
+		<script type="text/javascript">
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext('2d');
+			var r = 10;
+
+			var img = new Image();
+
+			img.src = '../images/4.jpg';
+
+			img.onload = function() {
+				var timer = setInterval(function() {
+					if(r > 350) {
+						clearInterval(timer);
+					}
+					r += 5;
+					drawImg(r);
+				}, 30);
+			};
+
+			function drawImg(radius) {
+				ctx.save();
+				ctx.beginPath();
+				ctx.arc(300, 180, radius, 0, 2 * Math.PI);
+				ctx.clip();
+				ctx.drawImage(img, 0, 0, 1365, 1365, 0, 0, 600, 600);
+				ctx.closePath();
+				ctx.restore();
+			}
+		</script>
+	</body>
+
+</html>
