@@ -5,12 +5,14 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="css/medialist.css" />
 		<title>Demo</title>
 		<style type="text/css">
 			* {
 				margin: 0;
 				padding: 0;
 				font-family: "microsoft yahei";
+				font-size: 13px;
 			}
 			
 			body {
@@ -27,7 +29,7 @@
 				width: 100%;
 				overflow: hidden;
 				height: 200px;
-				background: #40BCFF;
+				background: #F3F3F3;
 			}
 			
 			.item {
@@ -49,9 +51,10 @@
 				display: inline-block;
 				position: absolute;
 				top: 40px;
-				width: 99px;
-				height: 30px;
-				line-height: 30px;
+				width: 92px;
+				height: 25px;
+				line-height: 25px;
+				font-size: 13px;
 				text-align: center;
 				transform: rotate(-45deg);
 				-webkit-transform: rotate(-45deg);
@@ -66,13 +69,13 @@
 				position: absolute;
 				right: 15px;
 				bottom: 40px;
-				width: 60px;
-				height: 30px;
-				line-height: 30px;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
 				text-align: center;
 				background: rgba(0, 0, 0, 0.4);
 				color: #FFFFFF;
-				border-radius: 15px;
+				border-radius: 20px;
 			}
 			
 			.blue {
@@ -123,12 +126,13 @@
 			
 			.userinfo .avatar {
 				box-sizing: border-box;
-				width: 60px;
+				width: 52px;
 				padding: 10px;
 			}
 			
 			.userinfo .location {
-				width: 80px;
+				width: 32px;
+				padding-right: 5px;
 				line-height: 60px;
 			}
 			
@@ -143,6 +147,7 @@
 				padding: 10px;
 				background: #FFFFFF;
 				line-height: 2;
+				font-size: 13px;
 			}
 			
 			.bookinfo-name {
@@ -166,20 +171,79 @@
 				background: rgba(0, 0, 0, 0.4);
 				color: #FFFFFF;
 			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.dib{
+				display: inline-block;
+			}
+			.btn{
+				box-sizing: border-box;
+				background: #FFFFFF;
+				color: #FD7A40;
+				border: 1px solid #FD7A40;
+				border-radius: 15px;
+				width: 80px;				
+
+			}
+			.bookreview{
+				margin-bottom: 15px;
+			}
+
+			.title{
+				padding: 10px;
+				overflow: hidden;
+				background: #FFFFFF;
+			}
+
+			.lh30{
+				height: 30px;
+				line-height: 30px;
+			}
+
+			.mui-media-object{
+				
+				border-radius: 50%;
+			}
+			.mui-media-body{
+				line-height: 1.6;
+			}
+
+			.nothing{
+				font-family: PingFangSC-Regular;
+				font-size: 14px;
+				color: #DFDFDF;
+			}
+			.name{
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #999999;
+				letter-spacing: 0.19px;
+			}
+
+			.time{
+				font-family: PingFangSC-Regular;
+				font-size: 13px;
+				color: #999999;
+				letter-spacing: 0.15px;
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="header">
 			<span class="header-icon icon-center">
-				<span style="color: #EC915F;">详情</span>&nbsp;&nbsp;<span>更多</span>
+				<span style="color: #EC915F;font-size: 15px;">详情</span>
 
 			</span>
 			<span class="header-icon left">
 				<i class="iconfont icon-left"></i>
 			</span>
 			<span class="header-icon right">
-				<i class="iconfont icon-share"></i>
+				<i class="iconfont icon-share" style="font-size: 26px;"></i>
 			</span>
 
 		</div>
@@ -204,35 +268,109 @@
 		</div>
 
 		<div class="userinfo mt5">
-
+			<span class="dib" style="height: 60px;line-height: 60px;padding-left: 8px;">来自</span>
 			<div class="avatar">
-				<img style="border-radius: 50%;" width="40" src="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAABQAAD/4QMvaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjUtYzAyMSA3OS4xNTU3NzIsIDIwMTQvMDEvMTMtMTk6NDQ6MDAgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE0IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoxQUU1NjU4RDU1NjQxMUU2QkFERDgyOTA2NUIxQUEwQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoxQUU1NjU4RTU1NjQxMUU2QkFERDgyOTA2NUIxQUEwQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjFBRTU2NThCNTU2NDExRTZCQUREODI5MDY1QjFBQTBDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjFBRTU2NThDNTU2NDExRTZCQUREODI5MDY1QjFBQTBDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+/+4ADkFkb2JlAGTAAAAAAf/bAIQAAgICAgICAgICAgMCAgID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">
+				<img style="border-radius: 50%;" width="36" src="img/avatar.png">
 			</div>
 			<div class="user">
-				<div><span style="color: #F3A16E;">梅雪</span>&nbsp;的书架</div>
-				<div>[童话世界]&nbsp;<span style="color: #B9B9B9;">14个小时前</span></div>
+				<div><span style="color: #F3A16E;">Penelope</span>&nbsp;的书架</div>
+				<div>[发现新故事，找到好图书]&nbsp;<span style="color: #B9B9B9;">4月17日 10:00</span></div>
 			</div>
-			<div class="location">位置&nbsp;<i class="iconfont icon-location"></i></div>
+			<div class="location"><i class="iconfont icon-location"></i></div>
 
 		</div>
 
 		<div class="bookinfo mt5">
 			<p>
-				<span class="bookinfo-name">书名</span><span style="color: #5082AE;">我的第一本礼仪书</span>
+				<span class="bookinfo-name">书名</span><span>罗杰疑案</span>
+				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
 			</p>
 			<p class="mt10">
-				<span class="bookinfo-name">图书分类</span><span>少儿->科普百科->生活常识</span>
+				<span class="bookinfo-name">作者/编者</span><span class="nothing">上传者没填哦</span>
+				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
 			</p>
 			<p class="mt10">
-				<span class="bookinfo-name">图书书号</span><span>0100104204767W</span>
+				<span class="bookinfo-name">译者/编校者</span><span class="nothing">上传者没填哦</span>
+				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
 			</p>
+			<p class="mt10">
+				<span class="bookinfo-name">出版社</span><span class="nothing">上传者没填哦</span>
+			</p>
+			<p class="mt10" style="display: flex;display: -webkit-flex;height: 50px;">
+				<span style="float: left;width: 100px;color: #B9B9B9;padding-top: 5px;">出版时间</span>
+				<span class="dib" style="line-height: 1.4;height: 50px;">
+					<span>公元963年·癸亥（猪）年</span><br/>
+					<span>北宋·宋太祖·建隆/乾德·四年</span>
+				</span>
+			</p>
+			<p class="mt10">
+				<span class="bookinfo-name">图书分类</span><span>文学>小说>侦探悬疑推理</span>
+				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+			</p>
+			<p class="mt10">
+				<span class="bookinfo-name">定价</span><span class="nothing">上传者没填哦</span>
+				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+			</p>
+			
+		</div>
+		
+		<div class="bookreview mt5">
+			<div class="title">
+				<span class="fl dib lh30">精彩书评</span>
+				<span class="fr dib">
+					<button class="btn lh30">写书评</button>
+				</span>
+			</div>
 
-			<p class="mt10" style="text-align: center;color: #E6E6E6;">
-				上传者没有填哦
-			</p>
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/avatar.png">
+						<div class="mui-media-body">
+							<div class="name">黄彩霞</div>
+							<div class="time">7月4日 12:58</div>
+							<div id="text">我们都一样，年轻又彷徨，但至少我们都曾幸福。山亭夜宴作品，谨以此书献给让人欣喜，</div>
+							
+						</div>
+						<div id="btn_show" style="text-align: center;color:#FD7A40;margin-top: 3px;">查看全部&nbsp;<img src="img/icon_down.png" width="12"/></div>
+						
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="img/avatar.png">
+						<div class="mui-media-body">
+							<div class="name">Penelope</div>
+							<div class="time">7月8日 11:34</div>
+							<div>有没有觉得惊喜，总在不经意间。 如同奥特曼遇到小怪兽，好比小猫咪吃到小鱼干， 又或者街角转弯处，看到好久不见的你。</div>
+						</div>
+					</a>
+				</li>
+				
+			</ul>
+			
 		</div>
 
 		<script type="text/javascript">
+			
+			var datas = [{
+				'msg': '开始的开始，我们都是孩子'
+			}, {
+				'msg': '最后的最后，渴望变成天使'
+			}, {
+				'msg': '开始的开始，我们都是孩子'
+			}, {
+				'msg': '最后的最后，渴望变成天使'
+			}];
+			
+			
+			document.getElementById("btn_show").addEventListener('click',function(){
+				document.getElementById("text").innerHTML=document.getElementById("text").innerHTML+"给予治愈的存在我们生命中细碎的、美好的、那些时光。";
+				document.getElementById("btn_show").style.display="none";
+			});
+			
+			
 			(function() {
 
 				var cur = 0;
@@ -378,12 +516,15 @@
 
 				initImg();
 
+				showNum(0, len);
+
 			})();
 
-			function showNum(num1, num2) {
-				var sHtml = (num1 + 1) + "/" + num2;
-				document.querySelectorAll(".page-num")[0].innerHTML = sHtml;
+			
 
+			function showNum(num1, num2) {
+				var sHtml = (num1 + 1) + "/" + num2 + "&nbsp;" + datas[num1].msg;
+				document.querySelectorAll(".page-num")[0].innerHTML = sHtml;
 			}
 		</script>
 	</body>
