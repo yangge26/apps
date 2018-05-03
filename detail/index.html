@@ -20,6 +20,7 @@
 			}
 			
 			.container {
+				margin-top: 40px;
 				position: relative;
 				overflow: hidden;
 			}
@@ -83,10 +84,15 @@
 			}
 			
 			.header {
-				position: relative;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
 				text-align: center;
 				height: 45px;
 				line-height: 45px;
+				z-index: 100;
+				background: #FFFFFF;
 			}
 			
 			.header-icon {
@@ -230,6 +236,26 @@
 				color: #999999;
 				letter-spacing: 0.15px;
 			}
+			
+			.r180{
+				transform: rotate(180deg);
+				-webkit-transform:rotate(180deg);
+			}
+			
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			
+			.fs14{
+				font-size: 14px;
+			}
+			
+			.tc{
+				text-align: center;
+			}
 		</style>
 	</head>
 
@@ -283,15 +309,15 @@
 		<div class="bookinfo mt5">
 			<p>
 				<span class="bookinfo-name">书名</span><span>罗杰疑案</span>
-				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+				<i class="iconfont icon-left r180 fr fs14"></i>
 			</p>
 			<p class="mt10">
 				<span class="bookinfo-name">作者/编者</span><span class="nothing">上传者没填哦</span>
-				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+				<i class="iconfont icon-left r180 fr fs14"></i>
 			</p>
 			<p class="mt10">
 				<span class="bookinfo-name">译者/编校者</span><span class="nothing">上传者没填哦</span>
-				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+				<i class="iconfont icon-left r180 fr fs14"></i>
 			</p>
 			<p class="mt10">
 				<span class="bookinfo-name">出版社</span><span class="nothing">上传者没填哦</span>
@@ -305,11 +331,11 @@
 			</p>
 			<p class="mt10">
 				<span class="bookinfo-name">图书分类</span><span>文学>小说>侦探悬疑推理</span>
-				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+				<i class="iconfont icon-left r180 fr fs14"></i>
 			</p>
 			<p class="mt10">
 				<span class="bookinfo-name">定价</span><span class="nothing">上传者没填哦</span>
-				<i style="transform: rotate(180deg);-webkit-transform:rotate(180deg);float: right;font-size: 14px;" class="iconfont icon-left"></i>
+				<i class="iconfont icon-left r180 fr fs14"></i>
 			</p>
 			
 		</div>
@@ -331,10 +357,8 @@
 							<div class="name">黄彩霞</div>
 							<div class="time">7月4日 12:58</div>
 							<div id="text">我们都一样，年轻又彷徨，但至少我们都曾幸福。山亭夜宴作品，谨以此书献给让人欣喜，</div>
-							
 						</div>
 						<div id="btn_show" style="text-align: center;color:#FD7A40;margin-top: 3px;">查看全部&nbsp;<img src="img/icon_down.png" width="12"/></div>
-						
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media">
