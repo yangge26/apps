@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>图片合并二维码</title>
+	</head>
+
+	<body>
+
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function getQRcodeImg() {
+				var qrcodeImg = new Image();
+				qrcodeImg.src = new AraleQRCode({
+					render: 'canvas',
+					correctLevel: 0,
+					text: "https://www.baidu.com",
+					size: 200,
+					background: '#FFFFFF',
+					foreground: '#000000',
+					pdground: '#000000'
+				}).toDataURL();
+
+				return qrcodeImg;
+			}
+
+			function imageTogether(imageUrl) {
+				var qrcodeImg = getQRcodeImg();
+				var bgImg = new Image();
+				bgImg.src = imageUrl;
+				bgImg.onload = function() {
+					var canvas = document.createElement('canvas');
+					canvas.width = 400;
+					canvas.height = 400;
+					var context = canvas.getContext('2d');
+					context.drawImage(bgImg, 0, 0, 960, 960, 0, 0, 400, 400);
+					context.drawImage(qrcodeImg, 0, 0, 200, 200, 290, 10, 100, 100);
+					var img = document.createElement('img');
+					img.src = canvas.toDataURL();
+					document.body.appendChild(img);
+				};
+
+			}
+
+			imageTogether("../images/g1.jpg");
+		</script>
+	</body>
+
+</html>
