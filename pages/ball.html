@@ -5,10 +5,11 @@
 		<meta charset="UTF-8">
 		<title>小球回弹</title>
 		<style type="text/css">
-			*{
+			* {
 				margin: 0;
 				padding: 0;
 			}
+			
 			#canvas {
 				background: #DDDDDD;
 			}
@@ -23,39 +24,79 @@
 				var can = document.getElementById("canvas");
 				var context = can.getContext('2d');
 
-				var radius = 30;
-				var cWidth = 800;
-				var cHeight = 500;
+				var cWidth = 800,
+					cHeight = 500;
 
-				var b = new Ball(30, 30, radius, 5);
+				var count = 0;
+
+				var list = [];
+
+				var colors = [
+					'#ed5565',
+					'#fc6e51',
+					'#e9573f',
+					'#8cc152',
+					'#37bc9b',
+					'#4a89dc',
+					'#967adc',
+					'#ec87c0',
+					'#434a54'
+				];
+
+				list.push(getRandomBall());
 
 				setInterval(function() {
-					b.move();
-					drawBall(b);
-				}, 50);
+					count++;
+					if(count % 30 === 0) {
+						list.push(getRandomBall());
+					}
+
+					if(list.length > 30) {
+						list.shift();
+					}
+					moveBalls(list);
+					drawBalls(list);
+				}, 60);
+
+				function getRandomBall() {
+					var num = (Math.random() > 0.5) ? 1 : -1;
+
+					var x = parseInt(Math.random() * 600 + 100);
+					var y = 15;
+					var speed = parseInt(Math.random() * 4 + 3) * num;
+					var radius = parseInt(Math.random() * 4 + 15);
+
+					return new Ball(x, y, radius, speed);
+
+				}
 
 				function Ball(x, y, radius, speed) {
+
 					this.x = x;
 					this.y = y;
 					this.radius = radius;
 					this.speed = speed;
 					this.speedx = speed;
 					this.speedy = speed;
+
+					this.color = colors[parseInt(Math.random() * colors.length)];
 				}
 
-				Ball.prototype.move = function() {
+				Ball.prototype.move = function(w, h) {
 
 					this.x = this.x + this.speedx;
 					this.y = this.y + this.speedy;
 
-					if(this.x > cWidth - radius) {
+					var radius = this.radius;
+
+					if(this.x > w - radius) {
 						this.speedx = -this.speedx;
-						this.x = cWidth - radius;
+						this.x = w - radius;
 					}
 
-					if(this.y > cHeight - radius) {
+					if(this.y > h - radius) {
 						this.speedy = -this.speedy;
-						this.y = cHeight - radius;
+						this.y = h - radius;
 					}
 
 					if(this.x < radius) {
@@ -69,12 +110,25 @@
 					}
 				};
 
-				function drawBall(ball) {
+				function moveBalls(list) {
+					for(var i = 0, len = list.length; i < len; i++) {
+						list[i].move(cWidth, cHeight);
+					}
+				}
 
+				function drawBalls(list) {
 					context.clearRect(0, 0, cWidth, cHeight);
+					for(var i = 0, len = list.length; i < len; i++) {
+						drawOne(list[i]);
+					}
+				}
+
+				function drawOne(ball) {
+
 					context.beginPath();
 					context.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
 					context.closePath();
+					context.fillStyle = ball.color;
 					context.fill();
 
 				}
