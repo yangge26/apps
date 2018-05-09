@@ -7,4 +7,5 @@
 - [倒计时](https://yangge26.github.io/demos/pages/countdown.html)
 - [图片拖拽](https://yangge26.github.io/demos/pages/drag.html)
 - [图片展示](https://yangge26.github.io/demos/pages/show.html)
+- [小球回弹](https://yangge26.github.io/demos/pages/ball.html)
 - [个人作品合集](https://yangge26.github.io/demos/pages/works.html)

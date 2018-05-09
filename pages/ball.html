@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>小球回弹</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#canvas {
+				background: #DDDDDD;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<canvas id="canvas" width="800" height="500"></canvas>
+		<script type="text/javascript">
+			! function() {
+				var can = document.getElementById("canvas");
+				var context = can.getContext('2d');
+
+				var radius = 30;
+				var cWidth = 800;
+				var cHeight = 500;
+
+				var b = new Ball(30, 30, radius, 5);
+
+				setInterval(function() {
+					b.move();
+					drawBall(b);
+				}, 50);
+
+				function Ball(x, y, radius, speed) {
+					this.x = x;
+					this.y = y;
+					this.radius = radius;
+					this.speed = speed;
+					this.speedx = speed;
+					this.speedy = speed;
+				}
+
+				Ball.prototype.move = function() {
+
+					this.x = this.x + this.speedx;
+					this.y = this.y + this.speedy;
+
+					if(this.x > cWidth - radius) {
+						this.speedx = -this.speedx;
+						this.x = cWidth - radius;
+					}
+
+					if(this.y > cHeight - radius) {
+						this.speedy = -this.speedy;
+						this.y = cHeight - radius;
+					}
+
+					if(this.x < radius) {
+						this.speedx = -this.speedx;
+						this.x = radius;
+					}
+
+					if(this.y < radius) {
+						this.speedy = -this.speedy;
+						this.y = radius;
+					}
+				};
+
+				function drawBall(ball) {
+
+					context.clearRect(0, 0, cWidth, cHeight);
+					context.beginPath();
+					context.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
+					context.closePath();
+					context.fill();
+
+				}
+			}();
+		</script>
+
+	</body>
+
+</html>
